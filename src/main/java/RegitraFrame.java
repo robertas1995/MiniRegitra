@@ -6,12 +6,15 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
 public class RegitraFrame {
-    public static ArrayList<Vehcile> allVehcile = new ArrayList<Vehcile>(){{
+    private static final ArrayList<Vehcile> allVehcile = new ArrayList<Vehcile>(){{
+
+
 
     }};
 
@@ -30,18 +33,19 @@ public class RegitraFrame {
         frame.getContentPane().add(BorderLayout.PAGE_START,nameWindow);
         JLabel pasirinkimas1 = new JLabel("Pasirinkite");
 
-        JRadioButton motorcycle = new JRadioButton("Motociklas");
+        JRadioButton RadioMotorcycle = new JRadioButton("Motociklas");
         JRadioButton car = new JRadioButton("Automobilis");
         JRadioButton truck = new JRadioButton("Sunkvezimis");
         JRadioButton superCar = new JRadioButton("supercar");
         ButtonGroup group = new ButtonGroup();
-        group.add(motorcycle);
+        group.add(RadioMotorcycle);
         group.add(car);
+
         group.add(truck);
         group.add(superCar);
         JPanel pasirinkimas2 = new JPanel(new GridLayout(1,1));
         pasirinkimas2.add(pasirinkimas1);
-        pasirinkimas2.add(motorcycle);
+        pasirinkimas2.add(RadioMotorcycle);
         pasirinkimas2.add(car);
         pasirinkimas2.add(truck);
         pasirinkimas2.add(superCar);
@@ -51,15 +55,17 @@ public class RegitraFrame {
         JLabel markesLable = new JLabel("Pasirinkite marke");
         JComboBox<String> markeComboBox = new JComboBox<>(marke);
         markeComboBox.setSelectedIndex(1);
+        String makeString = markeComboBox.getItemAt(markeComboBox.getSelectedIndex()).toString();
         JTextField modelis = new JTextField("modelis",9);
         JPanel markesPanel = new JPanel();
         frame.getContentPane().add(BorderLayout.WEST,markesPanel);
         markesPanel.add(markesLable);
         markesPanel.add(markeComboBox);
         markesPanel.add(modelis);
-        JTextField metai = new JTextField("YYYY",6);
-        JTextField menesis = new JTextField("mm",6);
-        JTextField diena = new JTextField("dd",6);
+        JTextField metai = new JTextField(6);
+        JTextField menesis = new JTextField(6);
+        JTextField diena = new JTextField(6);
+//
         JPanel pagaminimoData = new JPanel();
         JLabel datosUzrasas = new JLabel("Iveskite pagaminimo data");
         frame.getContentPane().add(BorderLayout.LINE_START,pagaminimoData);
@@ -97,17 +103,33 @@ public class RegitraFrame {
         Find.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String mkl1 = (modelis.getText());
 
-            }
 
-        });
+
+
+        }});
         Find.setSize(2,6);
         JButton register = new JButton();
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    LocalDate InputDate = LocalDate.of(Integer.parseInt(metai.getText()),Integer.parseInt(menesis.getText()),Integer.parseInt(diena.getText()));
+//                    if (car.isSelected()){
+//                       // Vehcile car = new Car(makeString, modelis.getText(), InputDate, Integer.parseInt(hp.getText()),Integer.parseInt(kaina.getText()),Integer.parseInt(seats.getText()),numberPlate.getText());
+//                    }
 
+
+                    Vehcile vehcile = new Vehcile(makeString, modelis.getText(),InputDate, Integer.parseInt(hp.getText()),Double.parseDouble(kaina.getText()),Integer.parseInt(seats.getText()),numberPlate.getText());
+                    allVehcile.add(vehcile);
+                    System.out.println(vehcile);
+
+                }
+                catch (Exception exc ){
+                System.out.println("Klaida : " + exc.getMessage());
+
+
+            }
             }
         });
         register.setText("Registruoti");

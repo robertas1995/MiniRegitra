@@ -1,8 +1,28 @@
+import java.time.LocalDate;
 import java.util.Date;
 
-abstract class Vehcile {
+class  Vehcile {
     private int Id;
     private String Brand;
+    private String Model;
+    private LocalDate FirstRegistrationDate;
+    private int HorsePower;
+    private Double Price;
+    private int Seats;
+    private Double TaxRate;
+    private String NumberPlate;
+
+    public Vehcile(String brand, String model,LocalDate firstRegistrationDate, int horsePower, Double price, int seats, String numberPlate) {
+        this.Id = HelperFunctions.createCarID();
+        this.Brand = brand;
+        this.Model = model;
+        this.FirstRegistrationDate = firstRegistrationDate;
+        this.HorsePower = horsePower;
+        this.Price = price;
+        this.Seats = seats;
+//        this.TaxRate = taxRate;
+        this.NumberPlate = numberPlate;
+    }
 
     public int getId() {
         return Id;
@@ -28,11 +48,11 @@ abstract class Vehcile {
         Model = model;
     }
 
-    public Date getFirstRegistrationDate() {
+    public LocalDate getFirstRegistrationDate() {
         return FirstRegistrationDate;
     }
 
-    public void setFirstRegistrationDate(Date firstRegistrationDate) {
+    public void setFirstRegistrationDate(LocalDate firstRegistrationDate) {
         FirstRegistrationDate = firstRegistrationDate;
     }
 
@@ -76,13 +96,12 @@ abstract class Vehcile {
         NumberPlate = numberPlate;
     }
 
-    private String Model;
-    private Date FirstRegistrationDate;
-    private int HorsePower;
-    private Double Price;
-    private int Seats;
-    private Double TaxRate;
-    private String NumberPlate;
+
+
+    
+
+
+
 
 
 
