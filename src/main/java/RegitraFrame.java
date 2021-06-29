@@ -1,13 +1,29 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 public class RegitraFrame {
-    public static void main(String[] args) {
+    public static ArrayList<Vehcile> allVehcile = new ArrayList<Vehcile>(){{
+
+    }};
+
+
+
+    public static void main(String[] args) throws IOException {
         JFrame frame = new JFrame("Regitra");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700,800);
         frame.setBackground(Color.getHSBColor(244, 244, 244));
         frame.setLayout(new GridLayout(10, 1));
+
 
         JLabel pavadinimas = new JLabel("transporo registracija");
         JPanel nameWindow = new JPanel();
@@ -78,8 +94,22 @@ public class RegitraFrame {
         numberPanel.add(number);
         JButton Find = new JButton();
         Find.setText("Rasti");
+        Find.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String mkl1 = (modelis.getText());
+
+            }
+
+        });
         Find.setSize(2,6);
         JButton register = new JButton();
+        register.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         register.setText("Registruoti");
         register.setSize(2,6);
         JPanel buttons = new JPanel();
