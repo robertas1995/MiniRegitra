@@ -11,8 +11,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+
 public class RegitraFrame {
     private static final ArrayList<Vehcile> allVehcile = new ArrayList<Vehcile>(){{
+
+
 
 
 
@@ -20,7 +23,9 @@ public class RegitraFrame {
 
 
 
-    public static void main(String[] args) throws IOException {
+
+
+        public static void main(String[] args) throws IOException {
         JFrame frame = new JFrame("Regitra");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700,800);
@@ -32,6 +37,10 @@ public class RegitraFrame {
         JPanel nameWindow = new JPanel();
         frame.getContentPane().add(BorderLayout.PAGE_START,nameWindow);
         JLabel pasirinkimas1 = new JLabel("Pasirinkite");
+        JList sarasas = new JList();
+        JPanel listPanel = new JPanel();
+        frame.getContentPane().add(BorderLayout.AFTER_LINE_ENDS,listPanel);
+        listPanel.add(sarasas);
 
         JRadioButton RadioMotorcycle = new JRadioButton("Motociklas");
         JRadioButton car = new JRadioButton("Automobilis");
@@ -65,6 +74,10 @@ public class RegitraFrame {
         JTextField metai = new JTextField(6);
         JTextField menesis = new JTextField(6);
         JTextField diena = new JTextField(6);
+
+
+
+
 //
         JPanel pagaminimoData = new JPanel();
         JLabel datosUzrasas = new JLabel("Iveskite pagaminimo data");
@@ -110,28 +123,40 @@ public class RegitraFrame {
         }});
         Find.setSize(2,6);
         JButton register = new JButton();
+
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    LocalDate InputDate = LocalDate.of(Integer.parseInt(metai.getText()),Integer.parseInt(menesis.getText()),Integer.parseInt(diena.getText()));
+
 //                    if (car.isSelected()){
 //                       // Vehcile car = new Car(makeString, modelis.getText(), InputDate, Integer.parseInt(hp.getText()),Integer.parseInt(kaina.getText()),Integer.parseInt(seats.getText()),numberPlate.getText());
 //                    }
 
-
+                    LocalDate InputDate = LocalDate.of(Integer.parseInt(metai.getText()),Integer.parseInt(menesis.getText()),Integer.parseInt(diena.getText()));
                     Vehcile vehcile = new Vehcile(makeString, modelis.getText(),InputDate, Integer.parseInt(hp.getText()),Double.parseDouble(kaina.getText()),Integer.parseInt(seats.getText()),numberPlate.getText());
                     allVehcile.add(vehcile);
                     System.out.println(vehcile);
 
-                }
-                catch (Exception exc ){
-                System.out.println("Klaida : " + exc.getMessage());
 
 
-            }
+
+
             }
         });
+            FileWriter fw = null;
+            BufferedWriter bw = null;
+            try {
+                fw = new FileWriter("Regitros Sarasas.csv");
+                bw = new BufferedWriter(fw);
+                bw.write("Marke; modelis; reg.data; arklio galios; Kaina; Sedines; Valst.nr\n");
+
+                for (Vehcile c: allVehcile) {
+                    bw.write(String.format("%s;%s;%s\n", c.getBrand(), c.getModel(), c.getFirstRegistrationDate(), c.getHorsePower(), c.getPrice(), c.getSeats(), c.getNumberPlate()));
+                } } catch (Exception exc) {
+                System.out.println(String.format("Ivyko klaida: %s", exc.getMessage()));
+            } finally {
+                bw.close();
+            }
         register.setText("Registruoti");
         register.setSize(2,6);
         JPanel buttons = new JPanel();

@@ -1,7 +1,7 @@
 import java.time.LocalDate;
-import java.util.Date;
+import java.io.Serializable;
 
-class  Vehcile {
+public class  Vehcile implements Serializable{
     private int Id;
     private String Brand;
     private String Model;
@@ -12,7 +12,8 @@ class  Vehcile {
     private Double TaxRate;
     private String NumberPlate;
 
-    public Vehcile(String brand, String model,LocalDate firstRegistrationDate, int horsePower, Double price, int seats, String numberPlate) {
+
+    public Vehcile(String brand, String model, LocalDate firstRegistrationDate, int horsePower, Double price, int seats, String numberPlate) {
         this.Id = HelperFunctions.createCarID();
         this.Brand = brand;
         this.Model = model;
