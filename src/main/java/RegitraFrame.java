@@ -14,6 +14,7 @@ import java.util.Date;
 
 public class RegitraFrame {
     private static final ArrayList<Vehcile> allVehcile = new ArrayList<Vehcile>(){{
+        System.out.println(allVehcile);
 
 
 
@@ -49,7 +50,6 @@ public class RegitraFrame {
         ButtonGroup group = new ButtonGroup();
         group.add(RadioMotorcycle);
         group.add(car);
-
         group.add(truck);
         group.add(superCar);
         JPanel pasirinkimas2 = new JPanel(new GridLayout(1,1));
@@ -143,7 +143,7 @@ public class RegitraFrame {
 
             }
         });
-            FileWriter fw = null;
+            FileWriter fw;
             BufferedWriter bw = null;
             try {
                 fw = new FileWriter("Regitros Sarasas.csv");
@@ -151,7 +151,7 @@ public class RegitraFrame {
                 bw.write("Marke; modelis; reg.data; arklio galios; Kaina; Sedines; Valst.nr\n");
 
                 for (Vehcile c: allVehcile) {
-                    bw.write(String.format("%s;%s;%s\n", c.getBrand(), c.getModel(), c.getFirstRegistrationDate(), c.getHorsePower(), c.getPrice(), c.getSeats(), c.getNumberPlate()));
+                    bw.write(String.format("%s;%s;%s;%s;%s;%s;%s\n", c.getBrand(), c.getModel(), c.getFirstRegistrationDate(), c.getHorsePower(), c.getPrice(), c.getSeats(), c.getNumberPlate()));
                 } } catch (Exception exc) {
                 System.out.println(String.format("Ivyko klaida: %s", exc.getMessage()));
             } finally {
