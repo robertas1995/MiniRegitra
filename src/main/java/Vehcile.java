@@ -13,6 +13,7 @@ public class  Vehcile implements Serializable{
     private String NumberPlate;
 
 
+
     public Vehcile(String brand, String model, LocalDate firstRegistrationDate, int horsePower, Double price, int seats, String numberPlate) {
         this.Id = HelperFunctions.createCarID();
         this.Brand = brand;
@@ -23,6 +24,7 @@ public class  Vehcile implements Serializable{
         this.Seats = seats;
 //        this.TaxRate = taxRate;
         this.NumberPlate = numberPlate;
+
     }
 
     public int getId() {

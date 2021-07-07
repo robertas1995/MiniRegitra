@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,9 +17,11 @@ public class RegitraFrame {
     private static final ArrayList<Vehcile> allVehcile = new ArrayList<Vehcile>(){{
         System.out.println(allVehcile);
 
+    }};
+    private static final ArrayList<Vehcile> allCar = new ArrayList<Vehcile>(){{
 
-
-
+    }};
+    private static final ArrayList<Vehcile> motorcycle = new ArrayList<Vehcile>(){{
 
     }};
 
@@ -87,18 +90,18 @@ public class RegitraFrame {
         pagaminimoData.add(menesis);
         pagaminimoData.add(diena);
         nameWindow.add(pavadinimas);
-        JLabel hpLable = new JLabel("Arklio galios");
-        JTextField hp = new JTextField("hp",10);
-        JPanel hpPanel = new JPanel();
-        frame.getContentPane().add(BorderLayout.WEST,hpPanel);
-        hpPanel.add(hpLable);
-        hpPanel.add(hp);
-        JLabel kainosLable = new JLabel("Iveskite Kaina");
-        JTextField kaina = new JTextField(10);
-        JPanel kainosPanel = new JPanel();
-        frame.getContentPane().add(BorderLayout.WEST,kainosPanel);
-        kainosPanel.add(kainosLable);
-        kainosPanel.add(kaina);
+        JLabel horsePowerLabel = new JLabel("Arklio galios");
+        JTextField horsePowerTextField = new JTextField("hp",10);
+        JPanel horsePowerPanel = new JPanel();
+        frame.getContentPane().add(BorderLayout.WEST,horsePowerPanel);
+        horsePowerPanel.add(horsePowerLabel);
+        horsePowerPanel.add(horsePowerTextField);
+        JLabel priceLable = new JLabel("Iveskite Kaina");
+        JTextField priceTextField = new JTextField(10);
+        JPanel pricePanel = new JPanel();
+        frame.getContentPane().add(BorderLayout.WEST,pricePanel);
+        pricePanel.add(priceLable);
+        pricePanel.add(priceTextField);
         JLabel seatsLable = new JLabel("sedimos vietos");
         JTextField seats = new JTextField(5);
         JPanel seatsPanel = new JPanel();
@@ -116,6 +119,13 @@ public class RegitraFrame {
         Find.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame carListFrame = new JFrame();
+                carListFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                carListFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                carListFrame.setSize(700,800);
+                carListFrame.setBackground(Color.getHSBColor(244, 244, 244));
+                carListFrame.setLayout(new GridLayout(20, 1));
+                carListFrame.setVisible(true);
 
 
 
@@ -133,21 +143,28 @@ public class RegitraFrame {
                         FileWriter fw = null;
                         BufferedWriter bw = null;
                         try {
-//                    if (car.isSelected()){
-//                       // Vehcile car = new Car(makeString, modelis.getText(), InputDate, Integer.parseInt(hp.getText()),Integer.parseInt(kaina.getText()),Integer.parseInt(seats.getText()),numberPlate.getText());
-//                    }
                             LocalDate InputDate = LocalDate.of(Integer.parseInt(metai.getText()),Integer.parseInt(menesis.getText()),Integer.parseInt(diena.getText()));
-                            Vehcile vehcile = new Vehcile(makeString, modelis.getText(),InputDate, Integer.parseInt(hp.getText()),Double.parseDouble(kaina.getText()),Integer.parseInt(seats.getText()),numberPlate.getText());
+                         if (car.isSelected()){
+                        Vehcile car = new Car(makeString, modelis.getText(),InputDate ,Integer.parseInt(horsePowerTextField.getText()),Double.parseDouble(priceTextField.getText()),Integer.parseInt(seats.getText()),numberPlate.getText());
+                         allCar.add(car);
+                       System.out.println(car);
+                        }
+
+                            Vehcile vehcile = new Vehcile(makeString, modelis.getText(),InputDate, Integer.parseInt(horsePowerTextField.getText()),Double.parseDouble(priceTextField.getText()),Integer.parseInt(seats.getText()),numberPlate.getText());
                             allVehcile.add(vehcile);
                             System.out.println(vehcile);
                             fw = new FileWriter("Regitros Sarasas.csv");
                             bw = new BufferedWriter(fw);
                             bw.write("Marke; modelis; reg.data; arklio galios; Kaina; Sedines; Valst.nr\n");
+
                             for (Vehcile c: allVehcile) {
                                 bw.write(String.format("%s;%s;%s;%s;%s;%s;%s\n", c.getBrand(), c.getModel(), c.getFirstRegistrationDate(), c.getHorsePower(), c.getPrice(), c.getSeats(), c.getNumberPlate()));
-                            } } catch (Exception exc) {
+
+                            } }
+                        catch (Exception exc) {
                             System.out.println(String.format("Ivyko klaida: %s", exc.getMessage()));
-                        } finally {
+                        }
+                        finally {
                             try {
                                 bw.close();
                             } catch (IOException ioException) {
@@ -169,11 +186,6 @@ public class RegitraFrame {
         frame.getContentPane().add(BorderLayout.WEST,buttons);
         buttons.add(Find);
         buttons.add(register);
-
-
-
-
-
         frame.setVisible(true);
     }
 
