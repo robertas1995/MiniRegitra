@@ -1,11 +1,21 @@
+package Model;
+
+import Model.Vehicle;
+
 import java.time.LocalDate;
 
-public class Truck extends Vehcile{
-    Double TaxRate = 1.5;
-    Double taxPrice = TaxRate * getPrice() + (getSeats()* 500);
+public class Truck extends Vehicle {
+    private final double taxMultiplier = 1.5;
+
+
 
 
     public Truck(String brand, String model, LocalDate firstRegistrationDate, int horsePower, Double price, int seats, String numberPlate) {
         super(brand, model, firstRegistrationDate, horsePower, price, seats, numberPlate);
+    }
+
+    @Override
+    public double calculateTax() {
+        return super.calculateTax()*taxMultiplier;
     }
 }

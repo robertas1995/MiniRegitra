@@ -1,3 +1,5 @@
+package Helpers;
+
 public class HelperFunctions {
 
     private static int idCounter = 0;

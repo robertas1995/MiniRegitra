@@ -1,7 +1,11 @@
+package Model;
+
+import Helpers.HelperFunctions;
+
 import java.time.LocalDate;
 import java.io.Serializable;
 
-public class  Vehcile implements Serializable{
+public class Vehicle implements Serializable{
     private int Id;
     private String Brand;
     private String Model;
@@ -14,7 +18,8 @@ public class  Vehcile implements Serializable{
 
 
 
-    public Vehcile(String brand, String model, LocalDate firstRegistrationDate, int horsePower, Double price, int seats, String numberPlate) {
+
+    public Vehicle(String brand, String model, LocalDate firstRegistrationDate, int horsePower, Double price, int seats, String numberPlate) {
         this.Id = HelperFunctions.createCarID();
         this.Brand = brand;
         this.Model = model;
@@ -22,7 +27,7 @@ public class  Vehcile implements Serializable{
         this.HorsePower = horsePower;
         this.Price = price;
         this.Seats = seats;
-//        this.TaxRate = taxRate;
+        this.TaxRate = 1.0;
         this.NumberPlate = numberPlate;
 
     }
@@ -92,8 +97,14 @@ public class  Vehcile implements Serializable{
     }
 
     public String getNumberPlate() {
+
         return NumberPlate;
+
+        }
+    public double calculateTax() {
+        return getTaxRate()*getPrice()+(getSeats()*500);
     }
+
 
     public void setNumberPlate(String numberPlate) {
         NumberPlate = numberPlate;

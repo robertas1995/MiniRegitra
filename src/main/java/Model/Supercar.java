@@ -1,7 +1,10 @@
+package Model;
+
+import Model.Car;
+
 import java.time.LocalDate;
 
-public class Supercar extends Car{
-    Double taxPrice = getPrice() * 4;
+public class Supercar extends Car {
 
 
 
